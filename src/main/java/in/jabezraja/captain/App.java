@@ -1,10 +1,13 @@
 package in.jabezraja.captain;
 
+import in.jabezraja.captain.service.Userservice;
+
 public class App {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Userservice userService = new Userservice();
 
+		userService.getAll();
 	}
 
 }

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: in.jabezraja.captain.TestCreateUser
+-------------------------------------------------------------------------------
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s - in in.jabezraja.captain.TestCreateUser

@@ -17,17 +17,17 @@ public class Userservice {
 		return userList;
 	}
 
-	public void create() {
-		User newUser = new User();
-		newUser.setId(001);
-		newUser.setFirstName("King");
-		newUser.setLastName("JR");
-		newUser.setEmail("jabezking777@gmail.com");
-		newUser.setPassword("jjjbro777");
-		newUser.setActive(true);
+	public void create(User newUser) {
 
 		UserDAO userDao = new UserDAO();
 		userDao.create(newUser);
+
+	}
+
+	public void update() {
+		User updateUser = new User();
+		UserDAO userDao = new UserDAO();
+		userDao.update(001, updateUser);
 	}
 
 }

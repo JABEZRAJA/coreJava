@@ -91,7 +91,7 @@ public class UserDAO {
 
 		for (int i = 0; i < arr.length; i++) {
 			User user = arr[i];
-			
+
 			if (user.getId() == userId) {
 				userMatch = user;
 				break;

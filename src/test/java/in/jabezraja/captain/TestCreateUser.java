@@ -90,9 +90,9 @@ public class TestCreateUser {
 		Userservice userService = new Userservice();
 		User newUser = new User();
 		newUser.setId(1);
-		newUser.setFirstName("Sesslyn");
-		newUser.setLastName("Johnson");
-		newUser.setEmail("sesslyn2004@gmail.com");
+		newUser.setFirstName("King");
+		newUser.setLastName("JR");
+		newUser.setEmail("jabezking777@gmail.com");
 		newUser.setPassword(null);
 		newUser.setActive(true);
 
@@ -110,9 +110,9 @@ public class TestCreateUser {
 		Userservice userService = new Userservice();
 		User newUser = new User();
 		newUser.setId(1);
-		newUser.setFirstName("Sesslyn");
-		newUser.setLastName("Johnson");
-		newUser.setEmail("sesslyn2004@gmail.com");
+		newUser.setFirstName("King");
+		newUser.setLastName("JR");
+		newUser.setEmail("jabezking777@gmail.com");
 		newUser.setPassword("");
 		newUser.setActive(true);
 
@@ -131,9 +131,9 @@ public class TestCreateUser {
 		User newUser = new User();
 		newUser.setId(1);
 		newUser.setFirstName(null);
-		newUser.setLastName("Johnson");
-		newUser.setEmail("sesslyn2004@gmail.com");
-		newUser.setPassword("Sess@1512");
+		newUser.setLastName("JR");
+		newUser.setEmail("jabezking777@gmail.com");
+		newUser.setPassword("king4849");
 		newUser.setActive(true);
 
 		Exception exception = assertThrows(Exception.class, () -> {
@@ -151,9 +151,9 @@ public class TestCreateUser {
 		User newUser = new User();
 		newUser.setId(1);
 		newUser.setFirstName("");
-		newUser.setLastName("Johnson");
-		newUser.setEmail("sesslyn2004@gmail.com");
-		newUser.setPassword("Sess@1512");
+		newUser.setLastName("JR");
+		newUser.setEmail("jabezking777@gmail.com");
+		newUser.setPassword("king4849");
 		newUser.setActive(true);
 
 		Exception exception = assertThrows(Exception.class, () -> {

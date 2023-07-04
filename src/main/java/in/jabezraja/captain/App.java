@@ -1,15 +1,18 @@
 package in.jabezraja.captain;
 
+import in.jabezraja.captain.model.Task;
 import in.jabezraja.captain.model.User;
+import in.jabezraja.captain.service.TaskService;
 import in.jabezraja.captain.service.Userservice;
 
 public class App {
 
 	public static void main(String[] args) {
-		Userservice userService;
 		User newUser;
+		TaskService taskService;
+		Task newTask;
 		try {
-			userService = new Userservice();
+			Userservice userService = new Userservice();
 
 			newUser = new User();
 			newUser.setId(001);
@@ -20,13 +23,26 @@ public class App {
 			newUser.setActive(true);
 
 			userService.create(newUser);
+			/// TASK ///
+			taskService = new TaskService();
+
+			newTask = new Task();
+			newTask.setId(1);
+			newTask.setName("King");
+			newTask.setDueDate("05-07-2023");
+			newTask.setActive(true);
+
+			taskService.create(newTask);
+
+			userService.getAll();
+			taskService.getAll();
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		// userService.update();
-		// userService.getAll();
+//		 userService.update();
+
 	}
 
 }

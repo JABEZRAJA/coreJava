@@ -22,12 +22,13 @@ public class TaskValidator {
 		// throw new ValidationException("Password can't be null or empty");
 		// }
 		StringUtil.rejectIfInvalidString(task.getDueDate(), "DueDate");
-		
+
 		String date = task.getDueDate();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate dueDate = LocalDate.parse(date, formatter);
-        LocalDate currentDate = LocalDate.now();
-		if(dueDate.equals(currentDate) || dueDate.isBefore(currentDate)) {
+		LocalDate dueDate = LocalDate.parse(date, formatter);
+		LocalDate currentDate = LocalDate.now();
+		
+		if (dueDate.equals(currentDate) || dueDate.isBefore(currentDate)) {
 			throw new ValidationException("Due date should be in future");
 		}
 	}

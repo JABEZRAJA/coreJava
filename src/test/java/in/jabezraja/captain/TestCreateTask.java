@@ -19,7 +19,7 @@ public class TestCreateTask {
 		Task newTask = new Task();
 		newTask.setId(1);
 		newTask.setName("King");
-		newTask.setDueDate("04-07-2023");
+		newTask.setDueDate("08-07-2023");
 		newTask.setActive(true);
 
 		assertDoesNotThrow(() -> {
@@ -114,6 +114,44 @@ public class TestCreateTask {
 		String actualMessage = exception.getMessage();
 
 		assertTrue(expectedMessage.equals(actualMessage));
+	}
+
+	@Test
+
+	public void testUserDueDateWithPastDate() {
+		TaskService taskService = new TaskService();
+
+		Task newTask1 = new Task();
+		newTask1.setId(001);
+		newTask1.setName("swim");
+		newTask1.setDueDate("03-07-2023");
+		newTask1.setActive(true);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			taskService.create(newTask1);
+		});
+		String exceptedMessage = "Due date should be in future";
+		String actualMessage = exception.getMessage();
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
+
+	@Test
+
+	public void testUserDueDateWithIncorrectFormat() {
+		TaskService taskService = new TaskService();
+
+		Task newTask1 = new Task();
+		newTask1.setId(001);
+		newTask1.setName("swim");
+		newTask1.setDueDate("03/07/2023");
+		newTask1.setActive(true);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			taskService.create(newTask1);
+		});
+		String exceptedMessage = "Incorrect date format";
+		String actualMessage = exception.getMessage();
+		assertTrue(exceptedMessage.equals(actualMessage));
 	}
 
 }

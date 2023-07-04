@@ -1,6 +1,9 @@
 package in.jabezraja.captain.service;
 
+import java.time.format.DateTimeParseException;
+
 import in.jabezraja.captain.dao.TaskDAO;
+import in.jabezraja.captain.exception.ValidationException;
 import in.jabezraja.captain.model.Task;
 import in.jabezraja.captain.validation.TaskValidator;
 
@@ -18,10 +21,17 @@ public class TaskService {
 	}
 
 	public void create(Task newTask) throws Exception {
-		TaskValidator.validate(newTask);
-		TaskDAO taskDao = new TaskDAO();
-		taskDao.create(newTask);
+		try {
+			TaskValidator.validate(newTask);
+		} catch (DateTimeParseException e) {
+			throw new ValidationException("Incorrect date format");
+		} catch (ValidationException e) {
 
+			throw new ValidationException(e.getMessage());
+		}
+
+		TaskDAO userDAO = new TaskDAO();
+		userDAO.create(newTask);
 	}
 
 	public void update(int id, Task updateTask) {

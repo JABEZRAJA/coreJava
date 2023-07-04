@@ -12,6 +12,9 @@ public class App {
 		TaskService taskService;
 		Task newTask;
 		try {
+			
+			/// USER ///
+			
 			Userservice userService = new Userservice();
 
 			newUser = new User();
@@ -23,7 +26,9 @@ public class App {
 			newUser.setActive(true);
 
 			userService.create(newUser);
+			
 			/// TASK ///
+			
 			taskService = new TaskService();
 
 			newTask = new Task();

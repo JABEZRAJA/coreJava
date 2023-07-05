@@ -24,7 +24,7 @@ public class TaskService {
 		try {
 			TaskValidator.validate(newTask);
 		} catch (DateTimeParseException e) {
-			throw new ValidationException("Incorrect date format");
+			throw new ValidationException("Incorrect date format (or) Invalid date");
 		} catch (ValidationException e) {
 
 			throw new ValidationException(e.getMessage());

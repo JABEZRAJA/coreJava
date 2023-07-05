@@ -149,9 +149,27 @@ public class TestCreateTask {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			taskService.create(newTask1);
 		});
-		String exceptedMessage = "Incorrect date format";
+		String exceptedMessage = "Incorrect date format (or) Invalid date";
 		String actualMessage = exception.getMessage();
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
 
+	@Test
+
+	public void testUserDueDateWithInvalidDate() {
+		TaskService taskService = new TaskService();
+
+		Task newTask1 = new Task();
+		newTask1.setId(001);
+		newTask1.setName("swim");
+		newTask1.setDueDate("30/02/2023");
+		newTask1.setActive(true);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			taskService.create(newTask1);
+		});
+		String exceptedMessage = "Incorrect date format (or) Invalid date";
+		String actualMessage = exception.getMessage();
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
 }

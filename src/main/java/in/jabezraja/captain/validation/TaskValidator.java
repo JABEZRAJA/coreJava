@@ -2,6 +2,7 @@ package in.jabezraja.captain.validation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import in.jabezraja.captain.exception.ValidationException;
 import in.jabezraja.captain.model.Task;
@@ -26,11 +27,13 @@ public class TaskValidator {
 		String date = task.getDueDate();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate dueDate = LocalDate.parse(date, formatter);
+
+		LocalDate.parse(date, DateTimeFormatter.ofPattern("d-M-uuuu").withResolverStyle(ResolverStyle.STRICT));
+
 		LocalDate currentDate = LocalDate.now();
-		
+
 		if (dueDate.equals(currentDate) || dueDate.isBefore(currentDate)) {
 			throw new ValidationException("Due date should be in future");
 		}
 	}
-
 }

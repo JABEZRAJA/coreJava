@@ -1,17 +1,22 @@
 package in.jabezraja.captain.dao;
 
+import java.util.Set;
+
+import in.jabezraja.captain.interfaces.TaskInterface;
 import in.jabezraja.captain.model.Task;
 
-public class TaskDAO {
+public class TaskDAO implements TaskInterface {
 
 	/**
 	 * Returns all Tasks in the TaskList.
 	 *
 	 * @return An array of all Task objects in the TaskList.
 	 */
-	public Task[] findAll() {
-		Task[] tasklist = TaskList.listOfTask;
-		return tasklist;
+
+	@Override
+	public Set<Task> findAll() {
+		Set<Task> userTask = TaskList.listOfTasks;
+		return userTask;
 	}
 
 	/**
@@ -21,16 +26,11 @@ public class TaskDAO {
 	 * @param newTask The Task to be added to the TaskList.
 	 */
 
+	@Override
 	public void create(Task newTask) {
+		Set<Task> taskList = TaskList.listOfTasks;
+		taskList.add(newTask);
 
-		Task[] arr = TaskList.listOfTask;
-		for (int i = 0; i < arr.length; i++) {
-			Task task = arr[i];
-			if (task == null) {
-				arr[i] = newTask;
-				break;
-			}
-		}
 	}
 
 	/**
@@ -39,17 +39,14 @@ public class TaskDAO {
 	 * @param updatedTask The Task with updated information.
 	 */
 
-	public void update(int id, Task updateTask) {
-		Task[] arr = TaskList.listOfTask;
-
-		for (int i = 0; i < arr.length; i++) {
-			Task task = arr[i];
-			if (task == null) {
-				continue;
-			}
-			if (task.getId() == id) {
-				arr[i].setName(updateTask.getName());
-				arr[i].setDueDate(updateTask.getDueDate());
+	@Override
+	public void update(Task updatedTask) {
+		Set<Task> taskList = TaskList.listOfTasks;
+		for (Task task : taskList) {
+			if (task.getId() == updatedTask.getId()) {
+				task.setName(updatedTask.getName());
+				task.setDueDate(updatedTask.getDueDate());
+				break;
 			}
 		}
 	}
@@ -60,16 +57,14 @@ public class TaskDAO {
 	 * @param taskId The id of the Task to be deactivated.
 	 */
 
-	public void delete(int taskId) {
-		Task[] arr = TaskList.listOfTask;
-		for (int i = 0; i < arr.length; i++) {
-			Task task = arr[i];
-
+	@Override
+	public void delete(int TaskId) {
+		Set<Task> taskList = TaskList.listOfTasks;
+		for (Task task : taskList) {
 			if (task == null) {
 				continue;
 			}
-
-			if (task.getId() == taskId) {
+			if (task.getId() == TaskId) {
 				task.setActive(false);
 				break;
 			}
@@ -83,18 +78,35 @@ public class TaskDAO {
 	 * @return The Task with the matching id, or null if no match is found.
 	 */
 
-	public Task findById(int taskId) {
-		Task[] arr = TaskList.listOfTask;
+	@Override
+	public Task findById(int id) {
+		Set<Task> taskList = TaskList.listOfTasks;
 		Task taskMatch = null;
 
-		for (int i = 0; i < arr.length; i++) {
-			Task task = arr[i];
-
-			if (task.getId() == taskId) {
+		for (Task task : taskList) {
+			if (task.getId() == id) {
 				taskMatch = task;
 				break;
 			}
 		}
 		return taskMatch;
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+
 	}
 }

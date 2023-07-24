@@ -1,6 +1,7 @@
 package in.jabezraja.captain.service;
 
 import java.time.format.DateTimeParseException;
+import java.util.Set;
 
 import in.jabezraja.captain.dao.TaskDAO;
 import in.jabezraja.captain.exception.ValidationException;
@@ -8,47 +9,42 @@ import in.jabezraja.captain.model.Task;
 import in.jabezraja.captain.validation.TaskValidator;
 
 public class TaskService {
-	public Task[] getAll() {
-
+	public Set<Task> getAll() {
 		TaskDAO taskDao = new TaskDAO();
-
-		Task[] taskList = taskDao.findAll();
-
-		for (int i = 0; i < taskList.length; i++) {
-			System.out.println(taskList[i]);
+		Set<Task> taskList = taskDao.findAll();
+		for (Task task : taskList) {
+			System.out.println(task);
 		}
 		return taskList;
+
 	}
 
 	public void create(Task newTask) throws Exception {
 		try {
 			TaskValidator.validate(newTask);
 		} catch (DateTimeParseException e) {
-			throw new ValidationException("Incorrect date format (or) Invalid date");
-		} catch (ValidationException e) {
-
-			throw new ValidationException(e.getMessage());
+			throw new ValidationException("Invalid date format or Invalid Date");
 		}
 
-		TaskDAO userDAO = new TaskDAO();
-		userDAO.create(newTask);
+		TaskValidator.validate(newTask);
+		TaskDAO taskDao = new TaskDAO();
+		taskDao.create(newTask);
 	}
 
-	public void update(int id, Task updateTask) {
-		// Task updateTask = new Task();
+	public void update(Task updateTask) throws Exception {
+		TaskValidator.validate(updateTask);
 		TaskDAO taskDao = new TaskDAO();
-		taskDao.update(001, updateTask);
+		taskDao.update(updateTask);
 	}
 
-	public void delete() {
-		Task deleteTask = new Task();
+	public void delete(int taskId) {
 		TaskDAO taskDao = new TaskDAO();
-		taskDao.delete(001);
+		taskDao.delete(1);
 	}
 
-	public Task findById(int id) {
+	public Task findById(int taskId) {
 		TaskDAO taskDao = new TaskDAO();
-		Task task = taskDao.findById(id);
+		Task task = taskDao.findById(1);
 		return task;
 	}
 }

@@ -1,17 +1,53 @@
 package in.jabezraja.captain.dao;
 
-import in.jabezraja.captain.model.User;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
-public class UserDAO {
+import in.jabezraja.captain.interfaces.UserInterface;
+import in.jabezraja.captain.model.User;
+import in.jabezraja.captain.util.ConnectionUtil;
+
+public class UserDAO implements UserInterface{
 
 	/**
 	 * Returns all Users in the UserList.
 	 *
 	 * @return An array of all User objects in the UserList.
 	 */
-	public User[] findAll() {
-		User[] userlist = UserList.listOfUser;
-		return userlist;
+
+	@Override
+	public Set<User> findAll() throws RuntimeException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Set<User> userList = new HashSet<>();
+		try {
+			String query = "SELECT * FROM Users var IsActive = 1";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery(); // this will get the object
+			while (rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setFirstName(rs.getString("first_name"));
+				user.setLastName(rs.getString("last_name"));
+				user.setPassword(rs.getString("password"));
+				user.setActive(rs.getBoolean("is_Active"));
+				userList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+		return userList;
 	}
 
 	/**
@@ -21,16 +57,10 @@ public class UserDAO {
 	 * @param newUser The User to be added to the UserList.
 	 */
 
+	@Override
 	public void create(User newUser) {
-
-		User[] arr = UserList.listOfUser;
-		for (int i = 0; i < arr.length; i++) {
-			User user = arr[i];
-			if (user == null) {
-				arr[i] = newUser;
-				break;
-			}
-		}
+		Set<User> arr = UserList.listOfUsers;
+		arr.add(newUser);
 	}
 
 	/**
@@ -39,19 +69,16 @@ public class UserDAO {
 	 * @param updatedUser The User with updated information.
 	 */
 
-	public void update(int id, User updateUser) {
-		User[] arr = UserList.listOfUser;
+	@Override
+	public void update(User updatedUser) {
+		Set<User> userList = UserList.listOfUsers;
+		for (User user : userList) {
+			if (user.getId() == updatedUser.getId()) {
+				user.setFirstName(updatedUser.getFirstName());
+				user.setLastName(updatedUser.getLastName());
+				user.setPassword(updatedUser.getPassword());
 
-		for (int i = 0; i < arr.length; i++) {
-			User user = arr[i];
-			if (user == null) {
-				continue;
-			}
-			if (user.getId() == id) {
-				arr[i].setFirstName(updateUser.getFirstName());
-				arr[i].setLastName(updateUser.getLastName());
-				arr[i].setPassword(updateUser.getPassword());
-				// user.setFirstName("Jabez");
+				break;
 			}
 		}
 	}
@@ -62,15 +89,13 @@ public class UserDAO {
 	 * @param userId The id of the User to be deactivated.
 	 */
 
+	@Override
 	public void delete(int userId) {
-		User[] arr = UserList.listOfUser;
-		for (int i = 0; i < arr.length; i++) {
-			User user = arr[i];
-
+		Set<User> userList = UserList.listOfUsers;
+		for (User user : userList) {
 			if (user == null) {
 				continue;
 			}
-
 			if (user.getId() == userId) {
 				user.setActive(false);
 				break;
@@ -85,13 +110,12 @@ public class UserDAO {
 	 * @return The User with the matching id, or null if no match is found.
 	 */
 
+	@Override
 	public User findById(int userId) {
-		User[] arr = UserList.listOfUser;
+		Set<User> userList = UserList.listOfUsers;
 		User userMatch = null;
 
-		for (int i = 0; i < arr.length; i++) {
-			User user = arr[i];
-
+		for (User user : userList) {
 			if (user.getId() == userId) {
 				userMatch = user;
 				break;
@@ -100,4 +124,19 @@ public class UserDAO {
 		return userMatch;
 	}
 
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated metho
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+	}
 }

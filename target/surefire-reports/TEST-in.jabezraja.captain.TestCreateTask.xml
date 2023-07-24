@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="in.jabezraja.captain.TestCreateUser" time="0.001" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="in.jabezraja.captain.TestCreateTask" time="0.1" tests="9" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,12 +58,26 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithPasswordEmpty" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithEmailEmpty" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithEmailNull" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithFirstNameEmpty" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithFirstNameNull" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithValidInput" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithInvalidInput" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
-  <testcase name="in.jabezraja.captain.TestCreateUser.testCreateUserWithPasswordNull" classname="in.jabezraja.captain.TestCreateUser" time="0"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testCreateTaskWithValidInput" classname="in.jabezraja.captain.TestCreateTask" time="0.074">
+    <failure message="Unexpected exception thrown: in.jabezraja.captain.exception.ValidationException: Due date should be in future" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Unexpected exception thrown: in.jabezraja.captain.exception.ValidationException: Due date should be in future
+	at org.junit.jupiter.api.AssertDoesNotThrow.createAssertionFailedError(AssertDoesNotThrow.java:83)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:54)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:37)
+	at org.junit.jupiter.api.Assertions.assertDoesNotThrow(Assertions.java:3135)
+	at in.jabezraja.captain.TestCreateTask.testCreateTaskWithValidInput(TestCreateTask.java:25)
+Caused by: in.jabezraja.captain.exception.ValidationException: Due date should be in future
+	at in.jabezraja.captain.service.TaskService.create(TaskService.java:30)
+	at in.jabezraja.captain.TestCreateTask.lambda$testCreateTaskWithValidInput$0(TestCreateTask.java:26)
+	at org.junit.jupiter.api.AssertDoesNotThrow.assertDoesNotThrow(AssertDoesNotThrow.java:50)
+	... 16 more
+</failure>
+  </testcase>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testCreateTaskWithInvalidInput" classname="in.jabezraja.captain.TestCreateTask" time="0.003"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testCreateTaskWithDueDateEmpty" classname="in.jabezraja.captain.TestCreateTask" time="0.002"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testCreateTaskWithNameEmpty" classname="in.jabezraja.captain.TestCreateTask" time="0.002"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testUserDueDateWithPastDate" classname="in.jabezraja.captain.TestCreateTask" time="0.002"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testUserDueDateWithIncorrectFormat" classname="in.jabezraja.captain.TestCreateTask" time="0.002"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testCreateTaskWithNameNull" classname="in.jabezraja.captain.TestCreateTask" time="0.001"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testCreateTaskWithDueDateNull" classname="in.jabezraja.captain.TestCreateTask" time="0.001"/>
+  <testcase name="in.jabezraja.captain.TestCreateTask.testUserDueDateWithInvalidDate" classname="in.jabezraja.captain.TestCreateTask" time="0.001"/>
 </testsuite>

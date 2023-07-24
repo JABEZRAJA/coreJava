@@ -1,18 +1,18 @@
 package in.jabezraja.captain.service;
 
+import java.util.Set;
+
 import in.jabezraja.captain.dao.UserDAO;
 import in.jabezraja.captain.model.User;
 import in.jabezraja.captain.validation.UserValidator;
 
 public class Userservice {
-	public User[] getAll() {
+	public Set<User> getAll() {
 
 		UserDAO userDao = new UserDAO();
-
-		User[] userList = userDao.findAll();
-
-		for (int i = 0; i < userList.length; i++) {
-			System.out.println(userList[i]);
+		Set<User> userList = userDao.findAll();
+		for (User user : userList) {
+			System.out.println(user);
 		}
 		return userList;
 	}
@@ -24,21 +24,28 @@ public class Userservice {
 
 	}
 
-	public void update(int id, User updateUser) {
-		// User updateUser = new User();
+	public void update() {
+		User updatedUser = new User();
+		updatedUser.setFirstName("King");
+		updatedUser.setLastName("JR");
+		updatedUser.setEmail("king@gmail.com");
+		updatedUser.setId(7);
+		updatedUser.setPassword("asdf;lkj");
+		updatedUser.setActive(true);
+
 		UserDAO userDao = new UserDAO();
-		userDao.update(001, updateUser);
+		userDao.update(updatedUser);
+
 	}
 
-	public void delete() {
-		User deleteUser = new User();
+	public void delete(int userId) {
 		UserDAO userDao = new UserDAO();
-		userDao.delete(001);
+		userDao.delete(userId);
 	}
 
-	public User findById(int id) {
-		UserDAO userDao = new UserDAO();
-		User user = userDao.findById(id);
-		return user;
-	}
+//	public User findById(int id) {
+//		UserDAO userDao = new UserDAO();
+//		User user = userDao.findById(id);
+//		return user;
+//	}
 }
